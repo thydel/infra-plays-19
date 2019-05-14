@@ -54,9 +54,13 @@ Get repos
 get-priv-repos.yml
 ```
 
-# Generate inventories
+`get-priv-repos.yml` use `paths.yml` to access `private_repos_file`,
+`keys_file` and `workdir`.
+
+
+# Generate and install inventories
 
 ```
 make -C ext/inventories main
+rsync -av ext/inventories/inventory .
 ```
-
