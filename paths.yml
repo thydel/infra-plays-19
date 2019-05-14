@@ -1,0 +1,11 @@
+---
+
+private_repos_file: private-repos.yml
+keys_file: keys.yml
+
+workdir: ext
+
+inventories: '{{ workdir }}/inventories'
+password_store: '{{ workdir }}/password-store'
+password_store_dir: '{{ playbook_dir }}/{{ password_store }}/password-store' # passwordstore lookup needs full path
+gpg_store: '{{ workdir }}/gpg-store'
