@@ -37,6 +37,13 @@ In your `private_repos_file` define choose repos for
 - others private requested repos (starting from private `infra-data-repos`)
 - Optionnaly define `gpg-store`
 
+e.g. I do
+
+```
+cp ~/usr/thydel.d/ssh-config/keys.yml .
+cp ~/usr/epipar.d/infra-data-repos/private-repos.yml . # Then edit to keep what I need
+```
+
 # Get private repos
 
 [ansible-get-priv-repos]: https://github.com/thydel/ansible-get-priv-repos "github.com repo"
