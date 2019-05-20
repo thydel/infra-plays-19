@@ -19,7 +19,8 @@ ansible-cfg.mk median
 Update `.gitignore`
 
 ```
-ansible-cfg.yml
+ansible localhost -m setup -a filter=ansible_env | grep PWD # fill the cache with current PWD
+ansible-cfg.yml -e dir=$(pwd) # or tell ansible
 ```
 
 # Define private variables
@@ -58,7 +59,7 @@ make -C ext/ansible-get-priv-repos install
 Get repos
 
 ```
-get-priv-repos.yml
+get-priv-repos.yml -e dir=$(pwd)
 ```
 
 `get-priv-repos.yml` use `paths.yml` to access `private_repos_file`,
