@@ -3,9 +3,9 @@
 
 - hosts: '!g_poweredoff'
   gather_facts: True
-  tasks: [ group_by: { key: 'debian-{{ ansible_distribution_release }}' } ]
+  tasks: [ group_by: { key: 'debian_{{ ansible_distribution_release }}' } ]
 
-- hosts: debian-jessie
+- hosts: debian_jessie
   gather_facts: False
   become: True
 
