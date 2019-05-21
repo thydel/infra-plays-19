@@ -1,0 +1,26 @@
+#!/usr/bin/env ansible-playbook
+---
+
+- hosts: '!g_poweredoff'
+  gather_facts: True
+  tasks: [ group_by: { key: 'debian-{{ ansible_distribution_release }}' } ]
+
+- hosts: debian-jessie
+  gather_facts: False
+  become: True
+
+  tasks:
+
+    - copy:
+        content: |
+          Acquire::Check-Valid-Until no;
+        dest: /etc/apt/apt.conf.d/99no-check-valid-until
+
+    - apt_repository:
+        repo: '{{ item.repo }}'
+        state: '{{ item.state }}'
+      loop:
+        - { state: absent, repo: 'deb http://ftp.fr.debian.org/debian/ jessie-updates main' }
+        - { state: absent, repo: 'deb-src http://ftp.fr.debian.org/debian/ jessie-updates main' }
+        - { state: absent, repo: 'deb http://ftp.fr.debian.org/debian jessie-backports main' }
+        - { state: present, repo: 'deb http://archive.debian.org/debian jessie-backports main' }
