@@ -23,4 +23,6 @@
         - { state: absent, repo: 'deb http://ftp.fr.debian.org/debian/ jessie-updates main' }
         - { state: absent, repo: 'deb-src http://ftp.fr.debian.org/debian/ jessie-updates main' }
         - { state: absent, repo: 'deb http://ftp.fr.debian.org/debian jessie-backports main' }
+        - { state: absent, repo: 'deb https://cran.rstudio.com/bin/linux/debian jessie-cran3/' }
+        - { state: absent, repo: 'deb-src https://cran.rstudio.com/bin/linux/debian jessie-cran3/' }
         - { state: present, repo: 'deb http://archive.debian.org/debian jessie-backports main' }
