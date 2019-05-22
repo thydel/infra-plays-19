@@ -21,13 +21,13 @@
         state: '{{ item.state }}'
       vars:
         jessie_updates: 'http://ftp.fr.debian.org/debian/ jessie-updates main'
-        jessie-backports: 'http://ftp.fr.debian.org/debian jessie-backports main'
+        jessie_backports: 'http://ftp.fr.debian.org/debian jessie-backports main'
         cran_rstudio: 'https://cran.rstudio.com/bin/linux/debian jessie-cran3/'
         cran_revolutionanalytics: 'http://cran.revolutionanalytics.com/bin/linux/debian jessie-cran3/'
       loop:
         - { state: absent, repo: 'deb {{ jessie_updates }}' }
         - { state: absent, repo: 'deb-src {{ jessie_updates }}' }
-        - { state: absent, repo: 'deb {{ jessie-backports }}' }
+        - { state: absent, repo: 'deb {{ jessie_backports }}' }
         - { state: absent, repo: 'deb {{ cran_rstudio }}' }
         - { state: absent, repo: 'deb-src {{ cran_rstudio }}' }
         - { state: absent, repo: 'deb cran_revolutionanalytics' }
