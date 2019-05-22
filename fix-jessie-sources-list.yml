@@ -30,7 +30,7 @@
         - { state: absent, repo: 'deb {{ jessie_backports }}' }
         - { state: absent, repo: 'deb {{ cran_rstudio }}' }
         - { state: absent, repo: 'deb-src {{ cran_rstudio }}' }
-        - { state: absent, repo: 'deb cran_revolutionanalytics' }
-        - { state: absent, repo: 'deb-src cran_revolutionanalytics' }
+        - { state: absent, repo: 'deb {{ cran_revolutionanalytics }}' }
+        - { state: absent, repo: 'deb-src {{ cran_revolutionanalytics }}' }
 
         - { state: present, repo: 'deb http://archive.debian.org/debian jessie-backports main' }
