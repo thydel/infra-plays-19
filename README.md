@@ -72,3 +72,10 @@ get-priv-repos.yml -e dir=$(pwd)
 make -C ext/inventories main
 rsync -av ext/inventories/inventory .
 ```
+
+# Generate ips and see what's new
+
+```
+make -C ext/ips
+make -C ext/ips diff
+```
