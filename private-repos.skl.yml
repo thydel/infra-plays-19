@@ -1,0 +1,27 @@
+---
+
+private_repos:
+
+  - src: git@github.com:_private_inventories_.git
+    name: inventories
+    version: master
+
+  - src: git@github.com:_private_password-store_.git
+    name: password-store
+    version: master
+
+  - src: git@github.com:_private_gpg-store_.git
+    name: gpg-store
+    version: master
+
+  - src: git@github.com:_private_ips_.git
+    name: ips
+    version: master
+
+  - src: git@github.com:_private_data-nodes_.git
+    name: data-nodes
+    version: master
+
+  - src: git@github.com:_private_data-users_.git
+    name: data-users
+    version: master

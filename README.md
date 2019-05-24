@@ -45,6 +45,9 @@ cp ~/usr/thydel.d/ssh-config/keys.yml .
 cp ~/usr/epipar.d/infra-data-repos/private-repos.yml . # Then edit to keep what I need
 ```
 
+You can also start from [skeleton](private-repos.skl.yml)
+
+
 # Get private repos
 
 [ansible-get-priv-repos]: https://github.com/thydel/ansible-get-priv-repos "github.com repo"
