@@ -1,0 +1,15 @@
+---
+
+# ansible-galaxy install -r requirements.yml
+
+- src: git@thyepi.github.com:Epiconcept-Paris/infra-legacy-ar-named.git
+  scm: git
+  version: master
+  accept_hostkey: True
+  key_file: ~/.ssh/id_epiconcept
+  name: legacy-named
+
+- src: https://github.com/thydel/ar-hg-etc-com.git
+  scm: git
+  name: hg-etc-com
+  version: use-module

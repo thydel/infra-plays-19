@@ -1,0 +1,13 @@
+#!/usr/bin/env ansible-playbook
+---
+
+- name: Setup bind9 files on a named node
+  hosts: g_named
+  become: True
+  gather_facts: False
+
+  vars_files: [ ext/ips/legacy/ips.js ]
+  roles:
+    - { role: hg-etc-com, com: before applying legacy-named role }
+    - { role: legacy-named }
+    - { role: hg-etc-com, com: after applying legacy-named role }
