@@ -1,0 +1,18 @@
+#!/usr/bin/env ansible-playbook
+---
+
+- name: Create apps user
+  hosts: '{{ hosts }}'
+  become: True
+  gather_facts: False
+
+  vars_files: [ ext/data-misc/out/users.js ]
+
+  tasks:
+    - user: '{{ users.index.name[item] | combine(more) }}'
+      loop: '{{ users.list.name }}'
+      vars:
+        more:
+          create_home: False
+          password: '!'
+          update_password: on_create
