@@ -72,7 +72,8 @@ get-priv-repos.yml -e dir=$(pwd)
 # Generate and install inventories
 
 ```
-make -C ext/inventories main
+make -C ext/inventories undone
+make -C ext/inventories
 rsync -av ext/inventories/inventory .
 ```
 
