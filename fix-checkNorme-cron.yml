@@ -1,21 +1,26 @@
 #!/usr/bin/env ansible-playbook
 ---
 
-- hosts: 'g_oxa:!g_poweredoff:!g_impact'
+- hosts: 'n_admin2:!g_poweredoff:!g_impact'
+  name: &group_by Group by has cron
   gather_facts: False
   tasks:
     - stat: { path: &file /etc/cron.d/epi-tous }
       register: st
       name: Has cron file ?
     - group_by: { key: 'epi_tous_{{ st.stat.exists | string }}' }
+      name: *group_by
 
 - hosts: epi_tous_True
+  name: &patch Patch cron file
   gather_facts: False
   become: True
-
   vars_files: [ ext/ips/out/ips.js ]
 
   tasks:
+
+    - debug: { msg: &minute '{{ index.admin2.name[inventory_hostname].split(".")[3]|int % 60 }}' }
+      when: show is defined
 
     - command: { argv: [ grep, ionice, *file ] }
       register: grep
@@ -39,5 +44,5 @@
           replace: '{{ minute }}\1'
       vars:
         script: checkNorme
-        minute: '{{ index.admin2.name[inventory_hostname].split(".")[3]|int % 60 }}'
-      name: Patch cron file
+        minute: *minute
+      name: *patch
