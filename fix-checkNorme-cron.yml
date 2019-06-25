@@ -1,0 +1,43 @@
+#!/usr/bin/env ansible-playbook
+---
+
+- hosts: 'g_oxa:!g_poweredoff:!g_impact'
+  gather_facts: False
+  tasks:
+    - stat: { path: &file /etc/cron.d/epi-tous }
+      register: st
+      name: Has cron file ?
+    - group_by: { key: 'epi_tous_{{ st.stat.exists | string }}' }
+
+- hosts: epi_tous_True
+  gather_facts: False
+  become: True
+
+  vars_files: [ ext/ips/out/ips.js ]
+
+  tasks:
+
+    - command: { argv: [ grep, ionice, *file ] }
+      register: grep
+      changed_when: False
+      check_mode: False
+      failed_when: grep.rc == 2
+      name: Already patched ?
+        
+    - replace:
+        dest: *file
+        regexp: '{{ item.regexp }}'
+        replace: '{{ item.replace }}'
+      when: grep.rc == 1
+      loop_control: { label: '{{ item.name }}' }
+      loop:
+        - name: nice
+          regexp: (/usr/local/bin/{{ script}} check)
+          replace: '! pgrep {{ script }} && nice -n 19 ionice -c 2 \1'
+        - name: when
+          regexp: '^0(.*{{ script }}.*)'
+          replace: '{{ minute }}\1'
+      vars:
+        script: checkNorme
+        minute: '{{ index.admin2.name[inventory_hostname].split(".")[3]|int % 60 }}'
+      name: Patch cron file
