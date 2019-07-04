@@ -1,0 +1,20 @@
+#!/usr/bin/env ansible-playbook
+---
+
+- hosts: 'n_admin2:!g_poweredoff:!g_impact'
+  gather_facts: True
+  tasks: [ group_by: { key: 'debian_{{ ansible_distribution_release }}' } ]
+
+- hosts: debian_stretch
+  gather_facts: False
+  become: True
+
+  tasks:
+
+    - apt_repository:
+        repo: 'deb http://deb.debian.org/debian stretch-backports main'
+        state: present
+
+    - apt:
+        name: [ certbot, python-certbot-apache ]
+        default_release: stretch-backports
