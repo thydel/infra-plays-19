@@ -1,0 +1,13 @@
+#!/usr/bin/env ansible-playbook
+---
+
+- name: automysqldump
+  hosts: g_automysqlbackup
+  gather_facts: False
+  become: True
+
+  roles:
+
+    - role: automysqlbackup
+      backupdir: /space/automysqlbackup
+      push: False
