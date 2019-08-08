@@ -1,0 +1,14 @@
+#!/usr/bin/env ansible-playbook
+---
+
+- hosts: g_front
+  gather_facts: True
+  become: True
+
+  tasks:
+    - apt_repository:
+        repo: 'deb http://httpredir.debian.org/debian {{ ansible_distribution_release }} contrib'
+    - apt:
+        name: ttf-mscorefonts-installer
+      environment:
+        https_proxy: '{{ lookup("env", "https_proxy" ) }}'
