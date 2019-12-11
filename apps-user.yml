@@ -1,12 +1,14 @@
 #!/usr/bin/env ansible-playbook
 ---
 
+# env ANSIBLE_INJECT_FACT_VARS=false apps-user.yml -l esisnfs$some -D
+
 - name: Create apps user
-  hosts: '{{ hosts }}'
+  hosts: '{{ ahosts }}'
   become: True
   gather_facts: False
 
-  vars_files: [ ext/data-misc/out/users.js ]
+  vars_files: [ ext/apps/users.js ]
 
   tasks:
     - user: '{{ users.index.name[item] | combine(more) }}'
@@ -14,5 +16,6 @@
       vars:
         more:
           create_home: False
+          system: True
           password: '!'
           update_password: on_create
