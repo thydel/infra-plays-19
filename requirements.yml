@@ -9,7 +9,7 @@
   key_file: ~/.ssh/id_epiconcept
   name: legacy-named
 
-- src: https://github.com/thydel/ar-hg-etc-com.git
+- src: git@github.com:thydel/ar-hg-etc-com.git
   scm: git
   name: hg-etc-com
   version: use-module

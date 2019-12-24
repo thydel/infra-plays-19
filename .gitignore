@@ -1,5 +1,5 @@
 *~
-ansible-cfg
+ansible_cfg
 ansible.cfg
 ext
 vault-pass.py
@@ -11,3 +11,7 @@ inventory
 log
 plugins
 roles
+.hide
+tmp
+ssh-config
+inventory/local

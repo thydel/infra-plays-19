@@ -1,4 +1,16 @@
-# Generate ansible config
+# Mininal setup
+
+```
+ansible-cfg median
+ln -s /usr/local/etc/epi/inventory
+. <(use-ansible)
+helper run init-play-dir
+ansible-galaxy install -r requirements.yml
+```
+
+# Obsolet
+
+## Generate ansible config
 
 [ansible-cfg]: https://github.com/thydel/ansible-cfg "github.com repo"
 
@@ -23,7 +35,7 @@ ansible localhost -m setup -a filter=ansible_env | grep PWD # fill the cache wit
 ansible-cfg.yml -e dir=$(pwd) # or tell ansible
 ```
 
-# Define private variables
+## Define private variables
 
 The `paths.yml` file define relative paths for
 
@@ -48,7 +60,7 @@ cp ~/usr/epipar.d/infra-data-repos/private-repos.yml . # Then edit to keep what 
 You can also start from [skeleton](private-repos.skl.yml)
 
 
-# Get private repos
+## Get private repos
 
 [ansible-get-priv-repos]: https://github.com/thydel/ansible-get-priv-repos "github.com repo"
 
@@ -69,7 +81,7 @@ get-priv-repos.yml -e dir=$(pwd)
 `keys_file` and `workdir`.
 
 
-# Generate and install inventories
+## Generate and install inventories
 
 ```
 make -C ext/inventories undone
@@ -77,7 +89,7 @@ make -C ext/inventories
 rsync -av ext/inventories/inventory .
 ```
 
-# Generate ips and see what's new
+## Generate ips and see what's new
 
 ```
 make -C ext/ips
