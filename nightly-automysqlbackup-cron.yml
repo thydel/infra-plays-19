@@ -1,0 +1,74 @@
+#!/usr/bin/env ansible-playbook
+---
+
+- name: Defines YAML macros
+  hosts: localhost
+  gather_facts: False
+  vars:
+    macros:
+      - &ro
+        changed_when: False
+        check_mode: False
+      - &lo
+        run_once: True
+        delegate_to: localhost
+      - &use_hg
+        include_role: { name: hg-etc-com }
+        when: use_hg is defined
+        name: commits before and after changes
+
+- name: Groups by automysqlbackup presence
+  hosts: all
+  gather_facts: False
+
+  vars: { the_group: has_not }
+
+  tasks:
+
+    - stat: { path: &cmd /usr/sbin/automysqlbackup }
+      register: st
+      <<: *ro
+      name: stats automysqlbackup cmd
+
+    - set_fact: { the_group: has }
+      when: st.stat.executable is defined and st.stat.executable
+      name: sets group_by var
+    
+    - group_by: { key: '{{ the_group }}_automysqlbackup' }
+      name: groups by automysqlbackup presence
+        
+- name: Uses nightly automysqlbackup cron instead of daily
+  hosts: has_automysqlbackup
+  gather_facts: False
+  become: True
+
+  tasks:
+
+    - include_vars:
+        file: /usr/local/etc/epi/data/oxa/apps/automysqlbackup.js
+        name: cron_time
+
+    - add_host:
+        hostname: '{{ item }}'
+        automysqlbackup_hour: '{{ cron_time[item].hour }}'
+        automysqlbackup_minut: '{{ cron_time[item].minut }}'
+      with_list: '{{ groups.has_automysqlbackup | intersect(cron_time.keys()) }}'
+      when: cron_time is defined
+      <<: *ro
+      name: Constructs dynamical inventory automysqlbackup_{hour,minut} vars
+        
+
+    - { <<: *use_hg, vars: { com: before nightly automysqlbackup cron } }
+
+    - file: { path: /etc/cron.daily/automysqlbackup, mode: -x, attr: i }
+      name: disables automysqlbackup daily cron and protects from future update
+
+    - copy:
+        dest: /etc/cron.d/automysqlbackup
+        content: >
+          {{ automysqlbackup_minut | default(minut) }} {{ automysqlbackup_hour | default(hour) }} * * *
+          root if [ -x {{ cmd }} ]; then {{ cmd }}; fi
+      vars: { minut: 5, hour: 3, cmd: *cmd }
+      name: creates a night cron 
+
+    - { <<: *use_hg, vars: { com: after nightly automysqlbackup cron } }
