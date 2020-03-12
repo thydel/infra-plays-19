@@ -15,3 +15,5 @@ roles
 tmp
 ssh-config
 inventory/local
+*.json
+data
