@@ -45,7 +45,7 @@
   tasks:
 
     - include_vars:
-        file: /usr/local/etc/epi/data/oxa/apps/automysqlbackup.js
+        file: /usr/local/etc/epi/data/oxa/apps/automysqlbackup.json
         name: cron_time
 
     - add_host:
