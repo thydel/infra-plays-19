@@ -9,8 +9,6 @@ setup.json: tmp/setup; cat $</* | jq . > $@
 
 # Get facts by node
 
-jq 'map(to_entries|map((.value // {nil: null}) | keys))' by_nodes-users.json > 1.json
-
 define by_node
   map(.ansible_facts)
 | map({ (.ansible_hostname): getpath($1) })
