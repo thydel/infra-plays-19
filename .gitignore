@@ -17,3 +17,5 @@ ssh-config
 inventory/local
 *.json
 data
+by_facts-*.md
+by_nodes-*.md
