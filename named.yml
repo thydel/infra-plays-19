@@ -6,7 +6,7 @@
   become: True
   gather_facts: False
 
-  vars_files: [ ext/ips/legacy/ips.js ]
+  vars_files: [ data/oxa/legacy/ips.js ]
   roles:
     - { role: hg-etc-com, com: before applying legacy-named role }
     - { role: legacy-named }
