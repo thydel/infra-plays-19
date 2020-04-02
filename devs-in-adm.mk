@@ -21,9 +21,10 @@ self := $(lastword $(MAKEFILE_LIST))
 $(self):;
 
 groups := data/oxa/groups.js
+group ?= mysql
 
 tmp/nodes: jsonnet := local g = (import '$(groups)').by_groups;
-tmp/nodes: jsonnet += std.setDiff(std.setInter(g.mysql, g.poweredon), g.impact)
+tmp/nodes: jsonnet += std.setDiff(std.setInter(g.$(group), g.poweredon), g.impact)
 tmp/nodes: $(groups) $(self); jsonnet -e "$(jsonnet)" | jq -r '.[] | . + ".admin2"' > $@
 
 RUN ?= dash
