@@ -3,6 +3,7 @@
 ```
 ansible-cfg median
 ln -s /usr/local/etc/epi/inventory
+ln -s /usr/local/etc/epi/data
 . <(use-ansible)
 helper run init-play-dir
 ansible-galaxy install -r requirements.yml
