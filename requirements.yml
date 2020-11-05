@@ -13,3 +13,8 @@
   scm: git
   name: hg-etc-com
   version: use-module
+
+- src: git@github.com:thydel/ar-automysqlbackup.git
+  scm: git
+  name: automysqlbackup
+  version: master
