@@ -1,20 +1,35 @@
 ---
 
 # ansible-galaxy install -r requirements.yml
+# ansible-galaxy collection install -r requirements.yml
+#
+# ansible-galaxy collection list
+#
+# ansible-galaxy collection verify ansible.posix
+# ansible-galaxy collection ansible.posix --upgrade
+#
+# ansible-galaxy collection verify -r requirements.yml
+# ansible-galaxy collection install --upgrade -r requirements.yml
 
-- src: git@thyepi.github.com:Epiconcept-Paris/infra-legacy-ar-named.git
-  scm: git
-  version: master
-  accept_hostkey: True
-  key_file: ~/.ssh/id_epiconcept
-  name: legacy-named
+collections:
+  - ansible.posix
+  - ansible.netcommon
+  - community.general
 
-- src: git@github.com:thydel/ar-hg-etc-com.git
-  scm: git
-  name: hg-etc-com
-  version: use-module
+roles:
+  - src: git@thyepi.github.com:Epiconcept-Paris/infra-legacy-ar-named.git
+    scm: git
+    version: master
+    accept_hostkey: True
+    key_file: ~/.ssh/id_epiconcept
+    name: legacy-named
 
-- src: git@github.com:thydel/ar-automysqlbackup.git
-  scm: git
-  name: automysqlbackup
-  version: master
+  - src: git@github.com:thydel/ar-hg-etc-com.git
+    scm: git
+    name: hg-etc-com
+    version: use-module
+
+  - src: git@github.com:thydel/ar-automysqlbackup.git
+    scm: git
+    name: automysqlbackup
+    version: master
